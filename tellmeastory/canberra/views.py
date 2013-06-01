@@ -3,6 +3,7 @@ from django.template import RequestContext
 from django.utils import simplejson
 from django.http import HttpResponse
 from canberra.models import *
+from django.db.models import Avg
 
 def home(request):
 
@@ -20,7 +21,29 @@ def tell_me_a_story(request, year):
         event_dict = {'type': 'event', 'message': event.message}
         story_tiles.append(event_dict)
 
-        story_dict = {'tiles': story_tiles}
+        
 
+
+    # Weather
+    # ------------
+    avg_minimum = 999.9
+    avg_minimum_month = 0
+    avg_maximum = 0.0
+    avg_maximum_month = 0
+    for i in range(1, 12):
+        temp = Temperature.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('minimum'))
+        if temp <= avg_minimum:
+            avg_minimum = temp
+            avg_minimum_month = i
+        temp = Temperature.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('maximum'))
+        if temp >= avg_maximum:
+            avg_maximum = temp
+            avg_maximum_month = i
+
+    months = ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
+    weather_dict = {'type': 'weather', 'min_temp_month': months[avg_minimum_month - 1], 'max_temp_month': months[avg_maximum_month - 1]}
+    story_tiles.append(weather_dict)
+
+    story_dict = {'tiles': story_tiles}
     json = simplejson.dumps(story_dict)
     return HttpResponse(json, content_type='application/json')
