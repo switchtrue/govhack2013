@@ -2,12 +2,6 @@
 var TILE_TARGET_SELECTOR = '#tile-display';
 
 // Templates
-var EVENT_TEMPLATE = '<div class="tile event"><h2>Did You Know?</h2><div class="tile-content"><p>{{ message }}<p/></div></div>';
-var YOUTUBE_TEMPLATE = '<div class="tile youtube"><h2>YouTube</h2><div class="tile-content"><iframe width="420" height="315" src="{{embed_url}}" frameborder="0" allowfullscreen></iframe></div></div>';
-var IMAGE_TEMPLATE = '<div class="tile youtube"><h2>YouTube</h2><div class="tile-content"><img src="{{ image_url }}" alt="{{ image_caption }}" /></div></div>';
-var WEATHER_TEMPLATE = '<div class="tile weather"><h2>Weather</h2><div class="tile-content"><p>The hottest month in summer this year is {{max_temp_month}} degrees and...</p><p>The coldest month in winter this year is {{min_temp_month}} degrees.</p><p>It rained the most in INSERT_RAIN_HERE.</p></div>';
-
-
 
 
 // Scroll vars
@@ -17,16 +11,23 @@ var scrollTimerId, scrollPerMs, scrollToPosition;
 
 var storyapi = {
   get_story: function(year) {
+
+    $('#loading-story').css('display', 'block');
+
     $.ajax({
       type: 'GET'
       , url: '/tell-me-a-story/' + year
       , crossDomain: false
       , success: function(response, status, xhr) {
           storyapi.process_story(response);
+          $('#loading-story').css('display', 'none');
+          storyapi.begin_story();
         }
       });
     }
 , process_story: function(story) {
+
+    $(TILE_TARGET_SELECTOR).html('');
 
     var tiles = story.tiles;
 
@@ -44,6 +45,7 @@ var storyapi = {
         var tile_data = {
           max_temp_month: tile.max_temp_month
         , min_temp_month: tile.min_temp_month
+        , most_rainfall_month: tile.most_rainfall_month
         }
         storyapi.add_tile(WEATHER_TEMPLATE, tile_data);
       }
@@ -55,6 +57,19 @@ var storyapi = {
         storyapi.add_tile(YOUTUBE_TEMPLATE, tile_data);
       }
 
+      if (tile.type == 'demographic') {
+        var tile_data = {
+          max_gender: tile.max_gender
+        , min_gender: tile.min_gender
+        , avg_female_age: tile.avg_female_age
+        , avg_male_age: tile.avg_male_age
+        , birth_count: tile.birth_count
+        , avg_family_size: tile.avg_family_size
+        , avg_marriage_age: tile.avg_marriage_age
+        }
+        storyapi.add_tile(DEMOGRAPHIC_TEMPLATE, tile_data);
+      }
+
     }
   }
 , add_tile: function(template, data) {
@@ -62,7 +77,7 @@ var storyapi = {
     $(TILE_TARGET_SELECTOR).append(html);
   }
 
-, beginStory: function() {
+, begin_story: function() {
     $('body').removeClass('no-scroll');
 
     scrollToPosition = $('#story-start').position().top - 10;
@@ -80,3 +95,14 @@ var storyapi = {
     }, 1);
   }  
 }
+
+
+
+
+
+$(document).ready(function() {
+  $('#story-year').change(function() {
+    storyapi.get_story($(this).val());
+  });
+});
+
