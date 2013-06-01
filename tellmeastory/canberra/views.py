@@ -100,8 +100,11 @@ def tell_me_a_story(request, year):
     # Dont have data for all years so get the most recent year before the target year
     usable_year = Age.objects.filter(year__lte=year).aggregate(Max('year'))['year__max']
 
-    birth_record = Age.objects.get(year=usable_year, age=0) 
-    birth_count = birth_record.male + birth_record.female
+    try:
+        birth_record = Age.objects.get(year=usable_year, age=0) 
+        birth_count = birth_record.male + birth_record.female
+    except Age.DoesNotExist:
+        birth_count = 1 
 
     ages = Age.objects.filter(year=usable_year)
     male_count = 0
@@ -114,6 +117,19 @@ def tell_me_a_story(request, year):
         female_count += age.female
         female_total_age += (age.age * age.female)
 
+    usable_year = FamilySize.objects.filter(year__lte=year).aggregate(Max('year'))['year__max']
+    child_count = 1
+    total_children = 1
+    for family_size in FamilySize.objects.filter(year=usable_year):
+        child_count += family_size.child_count
+        total_children += (family_size.child_count * family_size.age)
+
+    usable_year = Marriage.objects.filter(year__lte=year).aggregate(Max('year'))['year__max']
+    marriage_count = 1
+    total_marriage_people = 1
+    for marriage in Marriage.objects.filter(year=usable_year):
+        marriage_count += marriage.total
+        total_marriage_people += (marriage.total * marriage.age)
 
     demographic_dict = {
         'type': 'demographic',
@@ -122,13 +138,13 @@ def tell_me_a_story(request, year):
         'avg_female_age': (female_total_age / female_count),
         'avg_male_age': (male_total_age / male_count),
         'birth_count': birth_count,
-        'avg_family_size': '',
-        'avg_marriage_age': '',
+        'avg_family_size': round((float(total_children) / float(child_count)) + 2, 2),
+        'avg_marriage_age': round((float(total_marriage_people) / float(marriage_count)) + 2),
         }
 
     story_tiles.append(demographic_dict)
     shuffle(story_tiles)
-
+    
     story_dict = {'tiles': story_tiles}
     json = simplejson.dumps(story_dict)
     return HttpResponse(json, content_type='application/json')

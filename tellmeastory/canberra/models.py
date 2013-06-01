@@ -52,3 +52,15 @@ class Age(models.Model):
     age = models.IntegerField(max_length=3)
     male = models.IntegerField(max_length=10)
     female = models.IntegerField(max_length=10)
+
+class FamilySize(models.Model):
+    year = models.IntegerField(max_length=4)
+    age = models.IntegerField(max_length=1)
+    child_count = models.IntegerField(max_length=10)
+
+class Marriage(models.Model):
+    year = models.IntegerField(max_length=4)
+    age = models.IntegerField(max_length=2)
+    male = models.IntegerField(max_length=10)
+    female = models.IntegerField(max_length=10)
+    total = models.IntegerField(max_length=10)

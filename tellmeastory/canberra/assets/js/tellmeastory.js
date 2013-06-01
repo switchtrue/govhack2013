@@ -15,7 +15,8 @@ var storyapi = {
 
     $('#loading-text').css('color', 'black');
     $('#loading-text').html('Writing your story, please wait...');
-    $('#loading-text').css('display', 'block');
+    $('#loadpen').css('display', 'block');
+    $('#loading-container').css('display', 'block');
 
     $.ajax({
       type: 'GET'
@@ -23,12 +24,13 @@ var storyapi = {
       , crossDomain: false
       , success: function(response, status, xhr) {
           storyapi.process_story(response);
-          $('#loading-text').css('display', 'none');
+          $('#loading-container').css('display', 'none');
           storyapi.begin_story();
         }
       , error: function() {
         $('#loading-text').css('color', 'red');
-        $('#loading-text').html('Uh-oh! The story writer has given up!');
+        $('#loading-text').html('Uh-oh! The story writer has given up!<br/> Try another story.');
+        $('#loadpen').css('display', 'none');
       }
       });
     }
@@ -148,4 +150,3 @@ $(document).ready(function() {
     }
   })
 });
-
