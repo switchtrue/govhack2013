@@ -1,0 +1,64 @@
+* {
+  margin: 0;
+}
+
+html, body {
+  height: 100%;
+  background-color: #FABD21;
+}
+
+.wrapper {
+  min-height: 100%;
+  height: auto !important;
+  height: 100%;
+  margin: 0 auto -4em;
+}
+
+.footer, .push {
+  height: 4em;
+}
+
+#story-compose {
+  height: 100%;
+  text-align: center;
+}
+
+#story-compose p {
+  position: absolute;
+  left: 35%;
+  top: 45%;
+}
+
+#tile-display {
+  width: 70%;
+  -moz-column-count: 2; /* Firefox */
+  -webkit-column-count: 2; /* Safari and Chrome */
+  column-count: 2;
+  column-gap: 0px;
+  -moz-column-gap: 0px; /* Firefox */
+  -webkit-column-gap: 0px; /* Safari and Chrome */
+  margin-left: auto;
+  margin-right: auto;
+
+}
+
+.tile {
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box; 
+  border: 8px solid #fff;
+  display: inline-block;
+  column-break-inside: avoid;
+  background-color: #ccc;
+  margin: 4px;
+}
+
+.tile h2 {
+  display: block;
+  background-color: #fff;
+  text-align: center;
+}
+
+.tile .tile-content {
+  padding: 15px;
+}
