@@ -22,6 +22,28 @@ def tell_me_a_story(request, year):
         event_dict = {'type': 'event', 'message': event.message}
         story_tiles.append(event_dict)
 
+    # YouTube
+    # ------------
+
+    videos = Youtube.objects.filter(year=year)
+    for video in videos:
+        video_dict = {'type': 'youtube', 'embed_url': video.embed_url}
+        story_tiles.append(video_dict)
+
+    # Photos
+    # ------------
+
+    photos = Photo.objects.filter(start_date=str(year))
+    for photo in photos:
+        photo_dict = {
+            'type': 'image',
+            'image_url': photo.large_image_url,
+            'caption': photo.title,
+            }
+        story_tiles.append(photo_dict)
+
+    shuffle(story_tiles)
+
     # Weather
     # ------------
     avg_minimum = 999.9
@@ -79,28 +101,6 @@ def tell_me_a_story(request, year):
         'avg_marriage_age': '',
         }
     story_tiles.append(demographic_dict)
-
-    # YouTube
-    # ------------
-
-    videos = Youtube.objects.filter(year=year)
-    for video in videos:
-        video_dict = {'type': 'youtube', 'embed_url': video.embed_url}
-        story_tiles.append(video_dict)
-
-    # Photos
-    # ------------
-
-    photos = Photo.objects.filter(start_date=str(year))
-    for photo in photos:
-        photo_dict = {
-            'type': 'image',
-            'image_url': photo.large_image_url,
-            'caption': photo.title,
-            }
-        story_tiles.append(photo_dict)
-
-    shuffle(story_tiles)
 
     story_dict = {'tiles': story_tiles}
     json = simplejson.dumps(story_dict)

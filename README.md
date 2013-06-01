@@ -9,7 +9,8 @@ Datasets:
 - ABS Australia Census Data: http://www.abs.gov.au/websitedbs/censushome.nsf/home/Census?opendocument#from-banner=GT
 - History event data scraped from: http://www.nationalcapital.gov.au/index.php?option=com_content&view=article&id=253&Itemid=247
 - History event data scraped from: http://www.canberrahistory.org.au/discover.asp
-- Videos tediously collected from YouTube: https://www.youtube.com/
+- Videos tediously collected from: YouTube: https://www.youtube.com/
+- National Archives PhotoSearch: http://team20.govhack.org.tmp.anchor.net.au/
 
 Attributions:
 ---
