@@ -6,13 +6,16 @@ var TILE_TARGET_SELECTOR = '#tile-display';
 
 // Scroll vars
 var scrollDuration = 100;
+var backToTopDuration = 50;
 var scrollPosition = 0;
 var scrollTimerId, scrollPerMs, scrollToPosition;
 
 var storyapi = {
   get_story: function(year) {
 
-    $('#loading-story').css('display', 'block');
+    $('#loading-text').css('color', 'black');
+    $('#loading-text').html('Writing your story, please wait...');
+    $('#loading-text').css('display', 'block');
 
     $.ajax({
       type: 'GET'
@@ -20,9 +23,13 @@ var storyapi = {
       , crossDomain: false
       , success: function(response, status, xhr) {
           storyapi.process_story(response);
-          $('#loading-story').css('display', 'none');
+          $('#loading-text').css('display', 'none');
           storyapi.begin_story();
         }
+      , error: function() {
+        $('#loading-text').css('color', 'red');
+        $('#loading-text').html('Uh-oh! The story writer has given up!');
+      }
       });
     }
 , process_story: function(story) {
@@ -44,6 +51,8 @@ var storyapi = {
       if (tile.type == 'weather') {
         var tile_data = {
           max_temp_month: tile.max_temp_month
+        , max_temp: tile.max_temp
+        , min_temp: tile.min_temp
         , min_temp_month: tile.min_temp_month
         , most_rainfall_month: tile.most_rainfall_month
         }
@@ -70,6 +79,14 @@ var storyapi = {
         storyapi.add_tile(DEMOGRAPHIC_TEMPLATE, tile_data);
       }
 
+      if (tile.type == 'image') {
+        var tile_data = {
+          image_url: tile.image_url
+        , caption: tile.caption
+        }
+        storyapi.add_tile(IMAGE_TEMPLATE, tile_data);
+      }
+
     }
   }
 , add_tile: function(template, data) {
@@ -94,6 +111,24 @@ var storyapi = {
       }
     }, 1);
   }  
+, back_to_top: function() {
+    
+    scrollToPosition = 0;
+    scrollPerMs = document.body.scrollTop / scrollDuration;
+
+    scrollPosition = document.body.scrollTop;
+
+    scrollTimerId = setInterval(function () {
+      if (scrollPosition <= scrollToPosition) {
+        clearInterval(scrollTimerId);
+      } else {
+        scrollPosition -= scrollPerMs;
+        window.scrollTo(0, scrollPosition);  
+      }
+    }, 1);
+
+    return false;
+  }
 }
 
 
@@ -104,5 +139,13 @@ $(document).ready(function() {
   $('#story-year').change(function() {
     storyapi.get_story($(this).val());
   });
+
+  $(window).scroll(function() {
+    if (document.body.scrollTop > 0) {
+      $('#back-to-top').removeClass('ghost');
+    } else {
+      $('#back-to-top').addClass('ghost');
+    }
+  })
 });
 

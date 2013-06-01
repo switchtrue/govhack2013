@@ -83,6 +83,10 @@ footer {
   padding: 15px;
 }
 
+.tile img {
+  display: inline;
+}
+
 .no-scroll {
   position: fixed;
   overflow-y: auto;
@@ -95,12 +99,34 @@ footer {
   font-weight: bold;
 }
 
-#story-year {
+.ghost {
+  display: none;
+}
+
+#tell-me-a-story-container {
+  position: relative;
+  top: 20%;
+}
+
+#tell-me-a-story-content {
+  position: relative;
+}
+
+#tell-me-a-story-container #story-year {
   border: 1px solid black;
   background-color: #fff;
   font-size: 2em;
+  position: absolute;
+  top: 15px;
+  left: 190px;
 }
 
-.ghost {
-  display: none;
+#story-start {
+  text-align: center;
+}
+
+#back-to-top {
+  position: fixed;
+  bottom: 0px;
+  right: 0px;
 }

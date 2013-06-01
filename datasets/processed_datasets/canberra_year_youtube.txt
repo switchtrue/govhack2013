@@ -1,27 +1,22 @@
-1913 http://www.youtube.com/embed/Px7vFz9HIK0
-
-
-1922 http://www.canberratimes.com.au/national/islamic-rewrite-of-gallipoli-legend-20130424-2if2m.html
-
-1925 http://aso.gov.au/titles/newsreels/australasian-gazette-parliamen/clip1/
-
-1927 http://aso.gov.au/titles/newsreels/official-opening-canberra/clip1/
-
-
-
-
-
-
-
-
-2009 http://www.youtube.com/embed/0mZuo2ZJNtU
-2009 http://www.youtube.com/embed/KZLSeHc_SSI
-2009 http://www.youtube.com/embed/lgx328HUWLM
-2009 http://www.youtube.com/embed/vahAubhTotU
-2010 http://www.youtube.com/embed/lkighrj2CXw
-2010 http://www.youtube.com/embed/x8eaCj348M4
-2011 http://www.youtube.com/embed/ItxvNCMgPk4
-2011 http://www.youtube.com/embed/e487MaojWBc
-2012 http://www.youtube.com/embed/EsbpkKUHV6U
-2013 http://www.youtube.com/embed/c3Y0YbkGMCk
-2013 http://www.youtube.com/embed/RsuZIYy3w5Q
+INSERT INTO (year, embed_url) VALUES (1913, 'http://www.youtube.com/embed/Px7vFz9HIK0');
+INSERT INTO (year, embed_url) VALUES (2003, 'http://www.youtube.com/embed/HmZf6P8vWhM');
+INSERT INTO (year, embed_url) VALUES (2003, 'http://www.youtube.com/embed/qPpOXH0ADSg');
+INSERT INTO (year, embed_url) VALUES (2004, 'http://www.youtube.com/embed/uVGvx-TymC0');
+INSERT INTO (year, embed_url) VALUES (2005, 'http://www.youtube.com/embed/y5Jf5hisFp4');
+INSERT INTO (year, embed_url) VALUES (2005, 'http://www.youtube.com/embed/cmOa_hJs9q4');
+INSERT INTO (year, embed_url) VALUES (2005, 'http://www.youtube.com/embed/591JzKciVAI');
+INSERT INTO (year, embed_url) VALUES (2006, 'http://www.youtube.com/embed/1dtDOiY79GU');
+INSERT INTO (year, embed_url) VALUES (2007, 'http://www.youtube.com/embed/ftDrJM3PIA8');
+INSERT INTO (year, embed_url) VALUES (2007, 'http://www.youtube.com/embed/bY7O74usN7M');
+INSERT INTO (year, embed_url) VALUES (2008, 'http://www.youtube.com/embed/nLPEprRxpwU');
+INSERT INTO (year, embed_url) VALUES (2009, 'http://www.youtube.com/embed/0mZuo2ZJNtU');
+INSERT INTO (year, embed_url) VALUES (2009, 'http://www.youtube.com/embed/KZLSeHc_SSI');
+INSERT INTO (year, embed_url) VALUES (2009, 'http://www.youtube.com/embed/lgx328HUWLM');
+INSERT INTO (year, embed_url) VALUES (2009, 'http://www.youtube.com/embed/vahAubhTotU');
+INSERT INTO (year, embed_url) VALUES (2010, 'http://www.youtube.com/embed/lkighrj2CXw');
+INSERT INTO (year, embed_url) VALUES (2010, 'http://www.youtube.com/embed/x8eaCj348M4');
+INSERT INTO (year, embed_url) VALUES (2011, 'http://www.youtube.com/embed/ItxvNCMgPk4');
+INSERT INTO (year, embed_url) VALUES (2011, 'http://www.youtube.com/embed/e487MaojWBc');
+INSERT INTO (year, embed_url) VALUES (2012, 'http://www.youtube.com/embed/EsbpkKUHV6U');
+INSERT INTO (year, embed_url) VALUES (2013, 'http://www.youtube.com/embed/c3Y0YbkGMCk');
+INSERT INTO (year, embed_url) VALUES (2013, 'http://www.youtube.com/embed/RsuZIYy3w5Q');

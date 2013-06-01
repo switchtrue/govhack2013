@@ -32,5 +32,17 @@ class Rainfall(models.Model):
 class Population(models.Model):
     year = models.IntegerField(max_length=4)
     male = models.IntegerField(max_length=20)
-    female = models.IntegerField(max_length=10)
+    female = models.IntegerField(max_length=20)
     total = models.IntegerField(max_length=10)
+
+class Youtube(models.Model):
+    year = models.IntegerField(max_length=4)
+    embed_url = models.CharField(max_length=200)
+
+class Photo(models.Model):
+    barcode = models.CharField(max_length=500)
+    title = models.CharField(max_length=500)
+    start_date = models.CharField(max_length=500)
+    archives_location = models.CharField(max_length=500)
+    large_image_url = models.CharField(max_length=500)
+    small_image_url = models.CharField(max_length=500)

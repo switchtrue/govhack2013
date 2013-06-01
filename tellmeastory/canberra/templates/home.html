@@ -12,16 +12,25 @@
                 <img src="/static/images/100LOGO2.png" alt="canberra logo" />
                 Stories
             </div>
-            {% include "year_selector.html" %}
-            <p style="font-size: 60px">Some huge Text</p>
-            <p id="loading-story" class="ghost">Writing your story, please wait...</p>
+            <div id="tell-me-a-story-container">
+                <span id="tell-me-a-story-content"> 
+                    <img id="tell-me-a-story-image" src="/static/images/TELLMEASTORY.png" />
+                    {% include "year_selector.html" %}
+                </span>
+            </div>
+            <div id="loading-container">
+                <p id="loading-text" class="ghost"></p>
+            </div>
         </div>
         <div id="story-start">
-            <span style="font-size: 2.3em;">Once upon a time in canberra</span>
+            <img src="/static/images/ONCEUPONATIME.png" />
         </div>
         <div id="content">
             <div id="tile-display">
             </div>
+        </div>
+        <div id="back-to-top" class="ghost">
+            <a href="javascript:storyapi.back_to_top()"><img src="/static/images/TOP.png" /></a>
         </div>
         <div class="push"></div>
     </div>
