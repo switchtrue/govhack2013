@@ -9,15 +9,6 @@ html, body {
 body {
   background-color: #FABD21;
   font-family: "Helvetica";
-/*  background: #fed56c;
-background: -moz-linear-gradient(top,  #fed56c 0%, #e0a500 100%);
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fed56c), color-stop(100%,#e0a500));
-background: -webkit-linear-gradient(top,  #fed56c 0%,#e0a500 100%);
-background: -o-linear-gradient(top,  #fed56c 0%,#e0a500 100%);
-background: -ms-linear-gradient(top,  #fed56c 0%,#e0a500 100%);
-background: linear-gradient(to bottom,  #fed56c 0%,#e0a500 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fed56c', endColorstr='#e0a500',GradientType=0 );
-*/
 }
 
 .wrapper {
@@ -176,6 +167,11 @@ footer {
 
 .tile .pad {
   padding: 15px 0px;
+}
+
+#skywhale {
+  position: absolute;
+  left: 0px;
 }
 
 /* clearfix code from http://www.webtoolkit.info/css-clearfix.html */

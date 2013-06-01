@@ -18,6 +18,8 @@ var storyapi = {
     $('#loadpen').css('display', 'block');
     $('#loading-container').css('display', 'block');
 
+    skywhale.hide();
+
     $.ajax({
       type: 'GET'
       , url: '/tell-me-a-story/' + year
@@ -149,4 +151,6 @@ $(document).ready(function() {
       $('#back-to-top').addClass('ghost');
     }
   })
+
+  skywhale.launchTimerId = setTimeout(skywhale.launch, 60000);
 });
