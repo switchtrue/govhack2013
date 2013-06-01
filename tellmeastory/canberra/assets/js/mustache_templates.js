@@ -37,7 +37,7 @@ var WEATHER_TEMPLATE =
 
 var DEMOGRAPHIC_TEMPLATE =
   '<div class="tile demographic">' +
-    '<h2><img src="/static/images/PEOPLE.png" /></h2>' + 
+    '<h2><img src="/static/images/PEOPLE.png" />Demographic</h2>' + 
     '<div class="tile-content">' +
       '<p>There were more {{max_gender}}s than {{min_gender}}s and their average ages were...</p>' +
       '<img src="/static/images/MALE.png" /><img src="/static/images/FEMALE.png" />' + 

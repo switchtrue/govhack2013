@@ -95,7 +95,7 @@ def tell_me_a_story(request, year):
     for photo in photos:
         photo_dict = {
             'type': 'image',
-            'image_url': photo.small_image_url,
+            'image_url': photo.large_image_url,
             'caption': photo.title,
             }
         story_tiles.append(photo_dict)
