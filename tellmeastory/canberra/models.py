@@ -46,3 +46,9 @@ class Photo(models.Model):
     archives_location = models.CharField(max_length=500)
     large_image_url = models.CharField(max_length=500)
     small_image_url = models.CharField(max_length=500)
+
+class Age(models.Model):
+    year = models.IntegerField(max_length=4)
+    age = models.IntegerField(max_length=3)
+    male = models.IntegerField(max_length=10)
+    female = models.IntegerField(max_length=10)

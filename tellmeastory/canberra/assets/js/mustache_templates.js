@@ -39,14 +39,14 @@ var DEMOGRAPHIC_TEMPLATE =
   '<div class="tile demographic">' +
     '<h2><img src="/static/images/PEOPLE.png" />Demographic</h2>' + 
     '<div class="tile-content">' +
-      '<p>There were more {{max_gender}}s than {{min_gender}}s and their average ages were...</p>' +
-      '<img src="/static/images/MALE.png" /><img src="/static/images/FEMALE.png" />' + 
-      '<p>{{avg_female_age}} for women and {{avg_male_age}} for men.</p>' +
+      '<p>There were more {{max_gender}}s than {{min_gender}}s and...</p>' +
+      '<img src="/static/images/FEMALE.png" /><img src="/static/images/MALE.png" />' + 
+      '<p>their average ages were {{avg_female_age}} for women and {{avg_male_age}} for men.</p>' +
       '<img src="/static/images/BABY.png" />' + 
       '<p>{{birth_count}} beautiful canberrans entered the world and...</p>' +
       '<img src="/static/images/FAMILY.png" />' + 
-      '<p>made the common canberran family consist of {{avg_family_size}} with...</p>' +
+      '<p>made the common canberran family consist of {{avg_family_size}} people with...</p>' +
       '<img src="/static/images/WEDDING.png" />' + 
-      '<p>most people getting married at the age of {{avg_marriage_age}}.</p>' +
+      '<p>most getting married at the age of {{avg_marriage_age}}.</p>' +
     '</div>' + 
   '</div>';
