@@ -1,5 +1,7 @@
 // Config
 var TILE_TARGET_SELECTOR = '#tile-display';
+var TILE_TARGET_SELECTOR_LEFT = '#tile-display-left';
+var TILE_TARGET_SELECTOR_RIGHT = '#tile-display-right';
 
 // Templates
 
@@ -9,6 +11,7 @@ var scrollDuration = 100;
 var backToTopDuration = 50;
 var scrollPosition = 0;
 var scrollTimerId, scrollPerMs, scrollToPosition;
+var insertLeft = true;
 
 var storyapi = {
   get_story: function(year) {
@@ -38,7 +41,8 @@ var storyapi = {
     }
 , process_story: function(story) {
 
-    $(TILE_TARGET_SELECTOR).html('');
+    $(TILE_TARGET_SELECTOR_LEFT).html('');
+    $(TILE_TARGET_SELECTOR_RIGHT).html('');
 
     var tiles = story.tiles;
 
@@ -60,7 +64,8 @@ var storyapi = {
         , min_temp_month: tile.min_temp_month
         , most_rainfall_month: tile.most_rainfall_month
         }
-        storyapi.add_tile(WEATHER_TEMPLATE, tile_data);
+        var html = Mustache.to_html(WEATHER_TEMPLATE, tile_data);  
+        $(TILE_TARGET_SELECTOR_RIGHT).prepend(html);
       }
 
       if (tile.type == 'youtube') {
@@ -80,7 +85,9 @@ var storyapi = {
         , avg_family_size: tile.avg_family_size
         , avg_marriage_age: tile.avg_marriage_age
         }
-        storyapi.add_tile(DEMOGRAPHIC_TEMPLATE, tile_data);
+
+        var html = Mustache.to_html(DEMOGRAPHIC_TEMPLATE, tile_data);  
+        $(TILE_TARGET_SELECTOR_LEFT).prepend(html);
       }
 
       if (tile.type == 'image') {
@@ -99,12 +106,18 @@ var storyapi = {
         }
         storyapi.add_tile(ARTICLE_TEMPLATE, tile_data);
       }
-
     }
   }
 , add_tile: function(template, data) {
-    var html = Mustache.to_html(template, data);
-    $(TILE_TARGET_SELECTOR).append(html);
+    var html = Mustache.to_html(template, data);  
+
+    if (insertLeft) {  
+      $(TILE_TARGET_SELECTOR_LEFT).append(html);
+      insertLeft = false;
+    } else {
+      $(TILE_TARGET_SELECTOR_RIGHT).append(html);
+      insertLeft = true;
+    }
   }
 
 , begin_story: function() {

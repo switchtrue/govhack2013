@@ -46,50 +46,41 @@ def tell_me_a_story(request, year):
                 'image_url': photo.large_image_url,
                 'caption': photo.title,
                 }
-            story_tiles.append(photo_dict)
+            story_tiles.append(photo_dict)   
 
-    # Weather
+    # Trove
     # ------------
-    avg_minimum = 999.9
-    avg_minimum_month = 0
-    avg_maximum = 0.0
-    avg_maximum_month = 0
-    avg_maximum_rainfall = 0.0
-    avg_maximum_rainfall_month = 0
-    for i in range(1, 12):
-        temp = Temperature.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('minimum'))
-        if temp['minimum__avg'] <= avg_minimum:
-            try:
-                avg_minimum = round(temp['minimum__avg'], 2)
-                avg_minimum_month = i
-            except TypeError: 
-                pass
-        temp = Temperature.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('maximum'))
-        if temp['maximum__avg'] >= avg_maximum:
-            try:
-                avg_maximum = round(temp['maximum__avg'], 2)
-                avg_maximum_month = i
-            except TypeError: 
-                pass
-        temp = Rainfall.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('rainfall'))
-        if temp['rainfall__avg'] >= avg_maximum_rainfall:
-            try:
-                avg_maximum = round(temp['rainfall__avg'], 2)
-                avg_maximum_rainfall_month = i
-            except TypeError: 
-                pass
 
-    months = ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
-    weather_dict = {
-        'type': 'weather',
-        'min_temp_month': months[avg_minimum_month - 1],
-        'min_temp': avg_minimum,
-        'max_temp_month': months[avg_maximum_month - 1],
-        'max_temp': avg_maximum,
-        'most_rainfall_month': months[avg_maximum_rainfall_month - 1],
+    trove_query_url = 'http://api.trove.nla.gov.au/result?key=%s&zone=newspaper&q=canberra%%20%s&encoding=json' % (settings.TROVE_API_KEY, year)
+    response = urllib2.urlopen(trove_query_url)
+    trove_json = simplejson.load(response)
+    articles = trove_json.get('response').get('zone')[0].get('records').get('article')
 
-        }
-    story_tiles.append(weather_dict)
+    article_count = 0
+    for article in articles:
+        article_count += 1
+        if article_count <= settings.MAX_ARTICLES:
+            cache_key = 'article_image_%s' % article.get('id')
+            image_src = cache.get(cache_key)
+            if not image_src:
+                print 'image_src cache miss'
+                image_page_url = 'http://trove.nla.gov.au/ndp/del/printArticleJpg/%s/3?print=n' % article.get('id')
+                response = urllib2.urlopen(image_page_url)
+                page_xml = et.parse(response)
+                image_src = dict((page_xml.findall('.//img')[0]).items())['src']
+                cache.set(cache_key, image_src, 86400)
+            else:
+                print 'image_src cache hit!'
+
+            article_dict = {
+                'type': 'article',
+                'id': article.get('id'),
+                'heading': article.get('heading'),
+                'image_url': 'http://trove.nla.gov.au%s' % image_src,
+                }
+            story_tiles.append(article_dict)
+
+    shuffle(story_tiles)
 
     # Demographic
     # ------------
@@ -150,39 +141,48 @@ def tell_me_a_story(request, year):
 
     story_tiles.append(demographic_dict)
 
-    # Trove
+    # Weather
     # ------------
+    avg_minimum = 999.9
+    avg_minimum_month = 0
+    avg_maximum = 0.0
+    avg_maximum_month = 0
+    avg_maximum_rainfall = 0.0
+    avg_maximum_rainfall_month = 0
+    for i in range(1, 12):
+        temp = Temperature.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('minimum'))
+        if temp['minimum__avg'] <= avg_minimum:
+            try:
+                avg_minimum = round(temp['minimum__avg'], 2)
+                avg_minimum_month = i
+            except TypeError: 
+                pass
+        temp = Temperature.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('maximum'))
+        if temp['maximum__avg'] >= avg_maximum:
+            try:
+                avg_maximum = round(temp['maximum__avg'], 2)
+                avg_maximum_month = i
+            except TypeError: 
+                pass
+        temp = Rainfall.objects.filter(station_name='Canberra', year=year, month=i).aggregate(Avg('rainfall'))
+        if temp['rainfall__avg'] >= avg_maximum_rainfall:
+            try:
+                avg_maximum = round(temp['rainfall__avg'], 2)
+                avg_maximum_rainfall_month = i
+            except TypeError: 
+                pass
 
-    trove_query_url = 'http://api.trove.nla.gov.au/result?key=%s&zone=newspaper&q=canberra%%20%s&encoding=json' % (settings.TROVE_API_KEY, year)
-    response = urllib2.urlopen(trove_query_url)
-    trove_json = simplejson.load(response)
-    articles = trove_json.get('response').get('zone')[0].get('records').get('article')
+    months = ('January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December')
+    weather_dict = {
+        'type': 'weather',
+        'min_temp_month': months[avg_minimum_month - 1],
+        'min_temp': avg_minimum,
+        'max_temp_month': months[avg_maximum_month - 1],
+        'max_temp': avg_maximum,
+        'most_rainfall_month': months[avg_maximum_rainfall_month - 1],
 
-    article_count = 0
-    for article in articles:
-        article_count += 1
-        if article_count <= settings.MAX_ARTICLES:
-            cache_key = 'article_image_%s' % article.get('id')
-            image_src = cache.get(cache_key)
-            if not image_src:
-                print 'image_src cache miss'
-                image_page_url = 'http://trove.nla.gov.au/ndp/del/printArticleJpg/%s/3?print=n' % article.get('id')
-                response = urllib2.urlopen(image_page_url)
-                page_xml = et.parse(response)
-                image_src = dict((page_xml.findall('.//img')[0]).items())['src']
-                cache.set(cache_key, image_src, 86400)
-            else:
-                print 'image_src cache hit!'
-
-            article_dict = {
-                'type': 'article',
-                'id': article.get('id'),
-                'heading': article.get('heading'),
-                'image_url': 'http://trove.nla.gov.au%s' % image_src,
-                }
-            story_tiles.append(article_dict)
-
-    shuffle(story_tiles)
+        }
+    story_tiles.append(weather_dict)
 
     story_dict = {'tiles': story_tiles}
     json = simplejson.dumps(story_dict)

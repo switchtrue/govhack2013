@@ -18,7 +18,7 @@ var IMAGE_TEMPLATE =
   '<div class="tile youtube">' +
     '<h2><img src="/static/images/CAMERA.png" />Photo</h2>' + 
     '<div class="tile-content">' +
-      '<img src="{{image_url}}" width="100%" alt="{{caption}}" />' +
+      '<img src="{{image_url}}" width="100%" alt="{{caption}}" title="{{caption}}" />' +
     '</div>' +
   '</div>';
 
@@ -27,7 +27,7 @@ var WEATHER_TEMPLATE =
     '<h2><img src="/static/images/WEATHER.png" />Weather</h2>' + 
     '<div class="tile-content" style="text-align: center;">' +
     '  <img src="/static/images/SUMMER.png" />' + 
-    '  <p>The hottest month in summer that year was {{max_temp_month}} at {{max_temp}} degress and...</p>' +
+    '  <p>The hottest month in summer that year was {{max_temp_month}} at {{max_temp}} degrees and...</p>' +
     '  <img src="/static/images/WINTER.png" />' + 
     '  <p>the coldest month in winter that year was {{min_temp_month}} at {{min_temp}} degrees.</p>' +
     '  <img src="/static/images/RAIN.png" />' + 
@@ -67,5 +67,13 @@ var DEMOGRAPHIC_TEMPLATE =
       '<div class="tile-content">' +
         '<p>{{heading}}</p>' +
         '<img src="{{image_url}}" width="100%" alt="{{heading}}" />' +
+      '</div>' +
+    '</div>'
+
+  var GOVHACKINFO_TEMPLATE = 
+    '<div class="tile govhack">' + 
+      '<h2><img src="/static/images/GOVHACK.png" />GovHack</h2>' +
+      '<div class="tile-content">' +
+        '<p>This project was developed by Mike Leonard, Emily Reid, Simon Schwartz as part of GovHack 2013 in Canberra. Code released on <a href="https://github.com/mleonard87/govhack2013" target="_blank">GitHub</a> under an MIT open source license. Please check with the respective owners for licensing and copyright terms for content loaded from mashed up data sources.</p>' +
       '</div>' +
     '</div>'

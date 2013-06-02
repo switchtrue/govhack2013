@@ -4,6 +4,7 @@
 
 html, body {
   height: 100%;
+  width: 100%;
 }
 
 body {
@@ -16,20 +17,25 @@ body {
   height: auto !important;
   height: 100%;
   margin: 0 auto -5em;
+  width: 100%;
+  display: block;
 }
 
 footer, .push {
-  height: 5em;
+  height: 7em;
 }
 
 footer {
   text-align: center;
-  font-size: 0.8em;11
+  font-size: 0.8em;
+  display: inline-block;
 }
 
 #story-compose {
   height: 100%;
   text-align: center;
+  width: 100%;
+  display: block;
 }
 
 #story-compose p {
@@ -59,6 +65,7 @@ footer {
   column-break-inside: avoid;
   background-color: #ccc;
   margin: 4px;
+  max-width: 400px;
   width: 100%;
 }
 
@@ -173,6 +180,22 @@ footer {
   position: absolute;
   left: 0px;
 }
+
+.tile-display-column {
+  float: left;
+  width: 49.5%;
+  display: inline-block;
+  -webkit-box-sizing: border-box; /* Safari/Chrome, other WebKit */
+  -moz-box-sizing: border-box;    /* Firefox, other Gecko */
+  box-sizing: border-box; 
+  padding: 0px 0px;
+}
+
+#tile-display-left .tile {
+  float: right;
+
+}
+
 
 /* clearfix code from http://www.webtoolkit.info/css-clearfix.html */
 .clearfix:after {
