@@ -118,11 +118,11 @@ footer {
   position: absolute;
   text-align: center;
   left: 35%;
-  margin-top: -65px;
+  margin-top: 18px;
   animation:loadpen-animation 2s;
   -webkit-animation:loadpen-animation 2s; /* Safari and Chrome */
   -webkit-animation-iteration-count: infinite;
-  -webkit-transform:rotate(270deg);
+ /* -webkit-transform:rotate(270deg); */
 }
 
 @keyframes loadpen-animation

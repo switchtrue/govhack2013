@@ -91,6 +91,15 @@ var storyapi = {
         storyapi.add_tile(IMAGE_TEMPLATE, tile_data);
       }
 
+      if (tile.type == 'article') {
+        var tile_data = {
+          id: tile.id
+        , heading: tile.heading
+        , image_url: tile.image_url
+        }
+        storyapi.add_tile(ARTICLE_TEMPLATE, tile_data);
+      }
+
     }
   }
 , add_tile: function(template, data) {

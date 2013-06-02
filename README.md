@@ -3,6 +3,7 @@ govhack2013
 
 Datasets:
 ---
+- Trove API for news article searches and scraping for image URLs: http://trove.nla.gov.au/general/api
 - ABS Australia Census Data, including male and female ages, marriage statistics and family statistics: http://www.abs.gov.au/websitedbs/censushome.nsf/home/Census?opendocument#from-banner=GT
 - BOM ACORN-SAT (temperature): http://www.bom.gov.au/climate/change/acorn-sat/#tabs=1
 - BOM Rainfall: http://www.bom.gov.au/climate/data/index.shtml?bookmark=136

@@ -41,7 +41,9 @@ var DEMOGRAPHIC_TEMPLATE =
     '<div class="tile-content">' +
       '<div>' +
       '<p>There were more {{max_gender}}s than {{min_gender}}s and...</p>' +
-      '<img src="/static/images/FEMALE.png" /><img src="/static/images/MALE.png" />' + 
+      '</div class="clearfix">' +
+      '<img src="/static/images/FEMALE.png" style="float: left;" /><img src="/static/images/MALE.png" style="float: right;" />' + 
+      '<div class="clearfix">' +
       '<p>their average ages were {{avg_female_age}} for women and {{avg_male_age}} for men.</p>' +
       '</div>' +
       '<div class="pad clearfix">' +
@@ -58,3 +60,12 @@ var DEMOGRAPHIC_TEMPLATE =
       '</div>' +
     '</div>' + 
   '</div>';
+
+  var ARTICLE_TEMPLATE = 
+    '<div class="tile article">' + 
+      '<h2><img src="/static/images/NEWSPAPER.png" />Article</h2>' +
+      '<div class="tile-content">' +
+        '<p>{{heading}}</p>' +
+        '<img src="{{image_url}}" width="100%" alt="{{heading}}" />' +
+      '</div>' +
+    '</div>'

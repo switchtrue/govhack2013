@@ -2,9 +2,13 @@ from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.utils import simplejson
 from django.http import HttpResponse
-from canberra.models import *
 from django.db.models import Avg, Sum, Max
+from django.conf import settings
+from django.core.cache import cache
+from canberra.models import *
 from random import shuffle
+import urllib2
+import xml.etree.ElementTree as et
 
 def home(request):
 
@@ -32,15 +36,17 @@ def tell_me_a_story(request, year):
 
     # Photos
     # ------------
-
+    photo_count = 0
     photos = Photo.objects.filter(start_date=str(year))
     for photo in photos:
-        photo_dict = {
-            'type': 'image',
-            'image_url': photo.large_image_url,
-            'caption': photo.title,
-            }
-        story_tiles.append(photo_dict)
+        photo_count += 1
+        if photo_count <= settings.MAX_PHOTOS:
+            photo_dict = {
+                'type': 'image',
+                'image_url': photo.large_image_url,
+                'caption': photo.title,
+                }
+            story_tiles.append(photo_dict)
 
     # Weather
     # ------------
@@ -143,8 +149,41 @@ def tell_me_a_story(request, year):
         }
 
     story_tiles.append(demographic_dict)
+
+    # Trove
+    # ------------
+
+    trove_query_url = 'http://api.trove.nla.gov.au/result?key=%s&zone=newspaper&q=canberra%%20%s&encoding=json' % (settings.TROVE_API_KEY, year)
+    response = urllib2.urlopen(trove_query_url)
+    trove_json = simplejson.load(response)
+    articles = trove_json.get('response').get('zone')[0].get('records').get('article')
+
+    article_count = 0
+    for article in articles:
+        article_count += 1
+        if article_count <= settings.MAX_ARTICLES:
+            cache_key = 'article_image_%s' % article.get('id')
+            image_src = cache.get(cache_key)
+            if not image_src:
+                print 'image_src cache miss'
+                image_page_url = 'http://trove.nla.gov.au/ndp/del/printArticleJpg/%s/3?print=n' % article.get('id')
+                response = urllib2.urlopen(image_page_url)
+                page_xml = et.parse(response)
+                image_src = dict((page_xml.findall('.//img')[0]).items())['src']
+                cache.set(cache_key, image_src, 86400)
+            else:
+                print 'image_src cache hit!'
+
+            article_dict = {
+                'type': 'article',
+                'id': article.get('id'),
+                'heading': article.get('heading'),
+                'image_url': 'http://trove.nla.gov.au%s' % image_src,
+                }
+            story_tiles.append(article_dict)
+
     shuffle(story_tiles)
-    
+
     story_dict = {'tiles': story_tiles}
     json = simplejson.dumps(story_dict)
     return HttpResponse(json, content_type='application/json')

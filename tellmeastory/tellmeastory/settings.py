@@ -158,3 +158,14 @@ LOGGING = {
         },
     }
 }
+
+TROVE_API_KEY = 'hj2brjkm4hoj8pbj'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.locmem.LocMemCache',
+    }
+}
+
+MAX_ARTICLES = 5
+MAX_PHOTOS = 5
