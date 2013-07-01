@@ -1,37 +1,40 @@
 <html>
 <head>
     <title>100 Years 100 Stories</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
+    <link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/style.css">
+    <script type="text/javascript">
+    var STATIC_URL = "{{ STATIC_URL }}";
+    </script>
 </head>
 <body class="no-scroll">
     <div class="wrapper">
         <div id="story-compose">
             <div class="year-stories-heading">
-                <img src="/static/images/100LOGO.png" alt="canberra logo" />
+                <img src="{{ STATIC_URL }}images/100LOGO.png" alt="canberra logo" />
                 Years
-                <img src="/static/images/100LOGO2.png" alt="canberra logo" />
+                <img src="{{ STATIC_URL }}images/100LOGO2.png" alt="canberra logo" />
                 Stories
             </div>
             <div id="tell-me-a-story-container">
                 <span id="tell-me-a-story-content"> 
-                    <img id="tell-me-a-story-image" src="/static/images/TELLMEASTORY.png" />
+                    <img id="tell-me-a-story-image" src="{{ STATIC_URL }}images/TELLMEASTORY.png" />
                     {% include "year_selector.html" %}
                 </span>
             </div>
             <div id="loading-container" class="ghost">
                 <p id="loading-text">Writing story, please wait.</p>
-                <div id="loadpen" ><img src="/static/images/LOADPEN.png"/></div>
+                <div id="loadpen" ><img src="{{ STATIC_URL }}images/LOADPEN.png"/></div>
             </div>
         </div>
         <div id="story-start">
-            <img src="/static/images/ONCEUPONATIME.png" />
+            <img src="{{ STATIC_URL }}images/ONCEUPONATIME.png" />
         </div>
         <div id="content">
             <div id="tile-display-left" class="tile-display-column clearfix"></div>
             <div id="tile-display-right" class="tile-display-column clearfix"></div>
         </div>
         <div id="back-to-top" class="ghost">
-            <a href="javascript:storyapi.back_to_top()"><img src="/static/images/TOP.png" /></a>
+            <a href="javascript:storyapi.back_to_top()"><img src="{{ STATIC_URL }}images/TOP.png" /></a>
         </div>
         <div class="push"></div>
     </div>
@@ -39,10 +42,10 @@
         This project was developed by Mike Leonard, Emily Reid, Simon Schwartz as part of GovHack 2013 in Canberra. Code released on <a href="https://github.com/mleonard87/govhack2013" target="_blank">GitHub</a> under an MIT open source license. Please check with the respective owners for licensing and copyright terms for content loaded from mashed up data sources.
     </footer>
 
-    <script src="/static/js/jquery-1.10.1.min.js" type="text/javascript"></script>
-    <script src="/static/js/mustache.js" type="text/javascript"></script>
-    <script src="/static/js/mustache_templates.js" type="text/javascript"></script>
-    <script src="/static/js/skywhale.js" type="text/javascript"></script>
-    <script src="/static/js/tellmeastory.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/jquery-1.10.1.min.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/mustache.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/mustache_templates.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/skywhale.js" type="text/javascript"></script>
+    <script src="{{ STATIC_URL }}js/tellmeastory.js" type="text/javascript"></script>
 </body>
 </html>

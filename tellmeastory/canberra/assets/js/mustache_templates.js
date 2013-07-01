@@ -1,6 +1,6 @@
 var EVENT_TEMPLATE = 
   '<div class="tile event">'+
-    '<h2><img src="/static/images/DIDYOUKNOW.png" />Did You Know?</h2>' + 
+    '<h2><img src="' + STATIC_URL + 'images/DIDYOUKNOW.png" />Did You Know?</h2>' + 
     '<div class="tile-content">' +
     '  <p>{{ message }}<p/>' +
     '</div>' +
@@ -8,7 +8,7 @@ var EVENT_TEMPLATE =
 
 var YOUTUBE_TEMPLATE =
   '<div class="tile youtube">' +
-    '<h2><img src="/static/images/VIDEO.png" /> YouTube</h2>' + 
+    '<h2><img src="' + STATIC_URL + 'images/VIDEO.png" /> YouTube</h2>' + 
     '<div class="tile-content">' +
       '<iframe width="300" height="225" src="{{embed_url}}" frameborder="0" allowfullscreen></iframe>' +
     '</div>' +
@@ -16,7 +16,7 @@ var YOUTUBE_TEMPLATE =
 
 var IMAGE_TEMPLATE =
   '<div class="tile youtube">' +
-    '<h2><img src="/static/images/CAMERA.png" />Photo</h2>' + 
+    '<h2><img src="' + STATIC_URL + 'images/CAMERA.png" />Photo</h2>' + 
     '<div class="tile-content">' +
       '<img src="{{image_url}}" width="100%" alt="{{caption}}" title="{{caption}}" />' +
     '</div>' +
@@ -24,7 +24,7 @@ var IMAGE_TEMPLATE =
 
 var WEATHER_TEMPLATE =
    '<div class="tile weather">' +
-    '<h2><img src="/static/images/WEATHER.png" />Weather</h2>' + 
+    '<h2><img src="' + STATIC_URL + 'images/WEATHER.png" />Weather</h2>' + 
     '<div class="tile-content" style="text-align: center;">' +
     '  <img src="/static/images/SUMMER.png" />' + 
     '  <p>The hottest month in summer that year was {{max_temp_month}} at {{max_temp}} degrees and...</p>' +
@@ -37,7 +37,7 @@ var WEATHER_TEMPLATE =
 
 var DEMOGRAPHIC_TEMPLATE =
   '<div class="tile demographic">' +
-    '<h2><img src="/static/images/PEOPLE.png" />Demographic</h2>' + 
+    '<h2><img src="' + STATIC_URL + 'images/PEOPLE.png" />Demographic</h2>' + 
     '<div class="tile-content">' +
       '<div>' +
       '<p>There were more {{max_gender}}s than {{min_gender}}s and...</p>' +
@@ -63,7 +63,7 @@ var DEMOGRAPHIC_TEMPLATE =
 
   var ARTICLE_TEMPLATE = 
     '<div class="tile article">' + 
-      '<h2><img src="/static/images/NEWSPAPER.png" />Article</h2>' +
+      '<h2><img src="' + STATIC_URL + 'images/NEWSPAPER.png" />Article</h2>' +
       '<div class="tile-content">' +
         '<p>{{heading}}</p>' +
         '<img src="{{image_url}}" width="100%" alt="{{heading}}" />' +
@@ -72,7 +72,7 @@ var DEMOGRAPHIC_TEMPLATE =
 
   var GOVHACKINFO_TEMPLATE = 
     '<div class="tile govhack">' + 
-      '<h2><img src="/static/images/GOVHACK.png" />GovHack</h2>' +
+      '<h2><img src="' + STATIC_URL + 'images/GOVHACK.png" />GovHack</h2>' +
       '<div class="tile-content">' +
         '<p>This project was developed by Mike Leonard, Emily Reid, Simon Schwartz as part of GovHack 2013 in Canberra. Code released on <a href="https://github.com/mleonard87/govhack2013" target="_blank">GitHub</a> under an MIT open source license. Please check with the respective owners for licensing and copyright terms for content loaded from mashed up data sources.</p>' +
       '</div>' +

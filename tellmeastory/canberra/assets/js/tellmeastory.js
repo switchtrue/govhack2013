@@ -174,5 +174,5 @@ $(document).ready(function() {
     }
   })
 
-  skywhale.launchTimerId = setTimeout(skywhale.launch, 60000);
+  //skywhale.launchTimerId = setTimeout(skywhale.launch, 60000);
 });
